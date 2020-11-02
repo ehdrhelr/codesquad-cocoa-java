@@ -1,2 +1,4 @@
 .idea
 codesquad-cocoa-java.iml
+out
+.DS_Store
