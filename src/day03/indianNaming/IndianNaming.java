@@ -1,17 +1,23 @@
-package day03;
+package day03.indianNaming;
 
 import java.util.*;
 
 public class IndianNaming {
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    private String name = "";
 
-        System.out.println("생년월일을 입력해 주세요>");
+    public IndianNaming(String[] birth) {
+        setName(birth);
+    }
 
-        int  birthYear = sc.nextInt();
-        int birthMonth = sc.nextInt();
-        int   birthDay = sc.nextInt();
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String[] birth) {
+        int  birthYear = Integer.valueOf(birth[0]);
+        int birthMonth = Integer.valueOf(birth[1]);
+        int   birthDay = Integer.valueOf(birth[2]);
 
         String  firstName = "";
         String middleName = "";
@@ -76,7 +82,6 @@ public class IndianNaming {
             case 30 : lastName = "의 혼"; break;
             case 31 : lastName = "은(는) 말이 없다."; break;
         }
-
-        System.out.printf("당신의 이름은 %s %s%s입니다.", firstName, middleName, lastName);
+        this.name = firstName+ " " + middleName + lastName;
     }
 }
