@@ -39,6 +39,7 @@ public class GameStarter {
 
     public void init() {
         currentRound++;
+        System.out.println(currentRound + " 라운드 (지뢰 " + currentRound + "개) !!! 수정해야됨"); // 수정해야됨.
         isMonsterMeet = false;
         isStepOnMine = false;
 
@@ -47,53 +48,20 @@ public class GameStarter {
         mine = new Mine(monster);// 지뢰 객체 생성하고 위치 초기화(random)
     }
 
-    public void movePlayer() {
+    public void inputDirection() {
         Scanner sc = new Scanner(System.in);
         String move = sc.nextLine();
-        if (move.equalsIgnoreCase("W")) moveUp();
-        if (move.equalsIgnoreCase("A")) moveLeft();
-        if (move.equalsIgnoreCase("S")) moveDown();
-        if (move.equalsIgnoreCase("D")) moveRight();
+        if (move.equalsIgnoreCase("W")) movePlayer(Direction.W.getIndex());
+        if (move.equalsIgnoreCase("A")) movePlayer(Direction.A.getIndex());
+        if (move.equalsIgnoreCase("S")) movePlayer(Direction.S.getIndex());
+        if (move.equalsIgnoreCase("D")) movePlayer(Direction.D.getIndex());
     }
 
-    public void moveUp() {
-        int newX = player.getX() + moveX[0]; // 이동하려는 위치의 x좌표 newX
-        int newY = player.getY() + moveY[0]; // 이동하려는 위치의 y좌표 newY
+    public void movePlayer(int i) {
+        int newX = player.getX() + moveX[i]; // 이동하려는 위치의 x좌표 newX
+        int newY = player.getY() + moveY[i]; // 이동하려는 위치의 y좌표 newY
         if (outOfMap(newX, newY)) {
-            System.out.println("맵 바깥쪽은 위험합니다.!");
-            return;
-        }
-        player.setX(newX);
-        player.setY(newY);
-    }
-
-    public void moveLeft() {
-        int newX = player.getX() + moveX[1]; // 이동하려는 위치의 x좌표 newX
-        int newY = player.getY() + moveY[1]; // 이동하려는 위치의 y좌표 newY
-        if (outOfMap(newX, newY)) {
-            System.out.println("맵 바깥쪽은 위험합니다.!");
-            return;
-        }
-        player.setX(newX);
-        player.setY(newY);
-    }
-
-    public void moveDown() {
-        int newX = player.getX() + moveX[2]; // 이동하려는 위치의 x좌표 newX
-        int newY = player.getY() + moveY[2]; // 이동하려는 위치의 y좌표 newY
-        if (outOfMap(newX, newY)) {
-            System.out.println("맵 바깥쪽은 위험합니다.!");
-            return;
-        }
-        player.setX(newX);
-        player.setY(newY);
-    }
-
-    public void moveRight() {
-        int newX = player.getX() + moveX[3]; // 이동하려는 위치의 x좌표 newX
-        int newY = player.getY() + moveY[3]; // 이동하려는 위치의 y좌표 newY
-        if (outOfMap(newX, newY)) {
-            System.out.println("맵 바깥쪽은 위험합니다.!");
+            System.out.println("맵 바깥쪽은 위험합니다!");
             return;
         }
         player.setX(newX);
@@ -119,7 +87,7 @@ public class GameStarter {
             }
             System.out.println();
         }
-    } // 14 lines, 3 depth - > 각각 10 , 1 이하로 줄이자.
+    } // 18 lines, 3 depth - > 각각 10 , 1 이하로 줄이자.
 
     public void checkMeetMonster(int playerX, int playerY) {
         if (playerX == monster.getX() && playerY == monster.getY()) {
@@ -131,6 +99,7 @@ public class GameStarter {
 
     public void checkStepOnMine(int playerX, int playerY) {
         if (playerX == mine.getX() && playerY == mine.getY()) {
+            System.out.println("지뢰를 밟았습니다!");
             System.out.println("GAME OVER (총 점수 : " + score + ")");
             isStepOnMine = true;
         }
@@ -145,13 +114,13 @@ public class GameStarter {
         init();
         while (true) {
             showMap();
-            movePlayer();
+            inputDirection();
             checkMeetMonster(player.getX(), player.getY());
             checkStepOnMine(player.getX(), player.getY());
             if (isMonsterMeet) playGame();
             if (isStepOnMine) return;
         }
-    } // 9 lines
+    } // 9 lines, 2 depth
 
     public static void main(String[] args) {
         GameStarter gameStarter = new GameStarter();
