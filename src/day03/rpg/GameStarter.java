@@ -75,9 +75,6 @@ public class GameStarter {
                     System.out.print("P ");
                     continue;
                 }
-                if (showMine(j, i)) {
-                    continue;
-                }
                 if (j == monster.getX() && i == monster.getY()) {
                     System.out.print("M ");
                     continue;
@@ -86,17 +83,7 @@ public class GameStarter {
             }
             System.out.println();
         }
-    } // 18 lines, 3 depth - > 각각 10 , 1 이하로 줄이자.
-
-    public boolean showMine(int x, int y) {
-        for (int k = 0; k < mine.getMineXY().size(); k++){
-            if (x == mine.getMineXY().get(k).get(0) && y == mine.getMineXY().get(k).get(1)) {
-                System.out.print("X ");
-                return true;
-            }
-        }
-        return false;
-    }
+    } // 14 lines, 3 depth - > 각각 10 , 1 이하로 줄이자.
 
     public void checkMeetMonster(int playerX, int playerY) {
         if (playerX == monster.getX() && playerY == monster.getY()) {
