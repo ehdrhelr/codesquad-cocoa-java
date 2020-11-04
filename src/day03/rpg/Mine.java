@@ -1,45 +1,41 @@
 package day03.rpg;
 
-public class Mine {
-    private int x; // x 좌표
-    private int y; // y 좌표
+import java.util.ArrayList;
 
-    Mine(Monster monster) { // 객체 생성하면 맵 임의의 장소에 지뢰 위치
-        locateMine(monster);
+public class Mine {
+
+    private ArrayList<ArrayList<Integer>> mineXY = new ArrayList<>();
+
+    Mine(Monster monster, int currentRound) { // 객체 생성하면 맵 임의의 장소에 지뢰 위치
+        for (int i = 0; i < Math.pow(2, currentRound - 1); i++) {
+            locateMine(monster);
+        }
     }
 
     public void locateMine(Monster monster) {
 
-        x = (int) (Math.random() * 11) + 1;
-        y = (int) (Math.random() * 11) + 1;
+        int x = (int) (Math.random() * 11) + 1;
+        int y = (int) (Math.random() * 11) + 1;
 
-        if (x == 6 && y == 6) {  // 몬스터가 플레이어 위치에 생성되면
+        if (x == 6 && y == 6) {  // 지가 플레이어 위치에 생성되면
             locateMine(monster); // 다시 위치 시킨다.
         }
 
-        if (x == 0 || y == 0) {  // 몬스터가 index 1 - 11 밖에 있으면
+        if (x == 0 || y == 0) {  // 지가 index 1 - 11 밖에 있으면
             locateMine(monster); // 다시 위치 시킨다.
         }
 
         if (x == monster.getX() && y == monster.getY()) { // 지뢰가 몬스터와 위치가 같으면
-            locateMine(monster); // 다시 위치 시킨다.
+            locateMine(monster); // 다시 위치 시킨뢰다.
         }
 
+        ArrayList<Integer> position = new ArrayList<>();
+        position.add(x);
+        position.add(y);
+        mineXY.add(position);
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int getY() {
-        return y;
+    public ArrayList<ArrayList<Integer>> getMineXY() {
+        return mineXY;
     }
 }

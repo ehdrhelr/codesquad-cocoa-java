@@ -39,13 +39,13 @@ public class GameStarter {
 
     public void init() {
         currentRound++;
-        System.out.println(currentRound + " 라운드 (지뢰 " + currentRound + "개) !!! 수정해야됨"); // 수정해야됨.
         isMonsterMeet = false;
         isStepOnMine = false;
 
         player = new Player();   // 플레이어 객체 생성하고 위치 초기화 (6, 6)
         monster = new Monster(); // 몬스터 객체 생성하고 위치 초기화(random)
-        mine = new Mine(monster);// 지뢰 객체 생성하고 위치 초기화(random)
+        mine = new Mine(monster, currentRound);// 지뢰 객체 생성하고 위치 초기화(random)
+        System.out.println(currentRound + " 라운드 (지뢰 " + mine.getMineXY().size() + "개)");
     }
 
     public void inputDirection() {
@@ -75,19 +75,28 @@ public class GameStarter {
                     System.out.print("P ");
                     continue;
                 }
-                if (j == mine.getX() && i == mine.getY()) {
-                    System.out.print("X ");
+                if (showMine(j, i)) {
                     continue;
                 }
                 if (j == monster.getX() && i == monster.getY()) {
                     System.out.print("M ");
                     continue;
                 }
-                System.out.print("O ");
+                System.out.print("* ");
             }
             System.out.println();
         }
     } // 18 lines, 3 depth - > 각각 10 , 1 이하로 줄이자.
+
+    public boolean showMine(int x, int y) {
+        for (int k = 0; k < mine.getMineXY().size(); k++){
+            if (x == mine.getMineXY().get(k).get(0) && y == mine.getMineXY().get(k).get(1)) {
+                System.out.print("X ");
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void checkMeetMonster(int playerX, int playerY) {
         if (playerX == monster.getX() && playerY == monster.getY()) {
@@ -98,10 +107,13 @@ public class GameStarter {
     }
 
     public void checkStepOnMine(int playerX, int playerY) {
-        if (playerX == mine.getX() && playerY == mine.getY()) {
-            System.out.println("지뢰를 밟았습니다!");
-            System.out.println("GAME OVER (총 점수 : " + score + ")");
-            isStepOnMine = true;
+        for (int i = 0; i < mine.getMineXY().size(); i++){
+            if (playerX == mine.getMineXY().get(i).get(0) && playerY == mine.getMineXY().get(i).get(1)) {
+                System.out.println("지뢰를 밟았습니다!");
+                System.out.println("GAME OVER (총 점수 : " + score + ")");
+                isStepOnMine = true;
+                return;
+            }
         }
     }
 
