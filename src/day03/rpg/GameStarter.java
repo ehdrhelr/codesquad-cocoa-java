@@ -85,17 +85,17 @@ public class GameStarter {
         }
     } // 14 lines, 3 depth - > 각각 10 , 1 이하로 줄이자.
 
-    public void checkMeetMonster(int playerX, int playerY) {
-        if (playerX == monster.getX() && playerY == monster.getY()) {
+    public void checkMeetMonster(Player player) {
+        if (player.getX() == monster.getX() && player.getY() == monster.getY()) {
             score++; // 점수 획득하고
             System.out.println("1점 획득! (총 점수 : " + score + ")");
             isMonsterMeet = true;
         }
     }
 
-    public void checkStepOnMine(int playerX, int playerY) {
+    public void checkStepOnMine(Player player) {
         for (int i = 0; i < mine.getMineXY().size(); i++){
-            if (playerX == mine.getMineXY().get(i).get(0) && playerY == mine.getMineXY().get(i).get(1)) {
+            if (player.getX() == mine.getMineXY().get(i).get(0) && player.getY() == mine.getMineXY().get(i).get(1)) {
                 System.out.println("지뢰를 밟았습니다!");
                 System.out.println("GAME OVER (총 점수 : " + score + ")");
                 isStepOnMine = true;
@@ -114,8 +114,8 @@ public class GameStarter {
         while (true) {
             showMap();
             inputDirection();
-            checkMeetMonster(player.getX(), player.getY());
-            checkStepOnMine(player.getX(), player.getY());
+            checkMeetMonster(player);
+            checkStepOnMine(player);
             if (isMonsterMeet) playGame();
             if (isStepOnMine) return;
         }
