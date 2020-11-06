@@ -1,4 +1,4 @@
-package day05.more1;
+package day05.more1.class1;
 
 import java.util.Arrays;
 import java.util.Scanner;

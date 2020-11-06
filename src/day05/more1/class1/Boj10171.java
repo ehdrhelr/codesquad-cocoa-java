@@ -1,4 +1,4 @@
-package day05.more1;
+package day05.more1.class1;
 
 public class Boj10171 {
     public static void main(String[] args) {
