@@ -12,6 +12,9 @@
 //        게임 오버시 소지금과 진행 턴을 표시해 준다.
 //        (옵션) 게임 오버시 이름을 입력받고 랭킹을 출력해 준다. 랭킹은 소지금이 많을 수록, 턴이 작을수록 높아진다.
 
+// 베팅 최대 금액 구현하기
+// 올인되었을 때 다시하기
+// 랭킹 구현
 package day06.game;
 
 import java.util.Random;
@@ -23,9 +26,11 @@ public class OddEvenGame {
     final int PLAYER_INITIAL_MONEY = 100;
     final int OPPONENT_MONEY = 120;
     final int RANDOM_LIMIT = 20;
+
     Player player;
     Player opponent;
     Random r;
+
     int currentGame = 0;
     int gameRound = 0;
 
@@ -49,35 +54,111 @@ public class OddEvenGame {
 
     public void playGame() {
         currentGame++;
+        System.out.println("------------------- Game " + currentGame + " -------------------");
         while (player.getMoney() > 0 && opponent.getMoney() > 0) {
             gameRound++;
-            System.out.println("Game " + currentGame + "(Round " + gameRound + ") 상대방이 숫자를 뽑았습니다. (1 - " + RANDOM_LIMIT + ")");
-            int randomNum = r.nextInt(RANDOM_LIMIT) + 1;
-            String opponentResult = isOddEven(randomNum);
-            System.out.println("베팅해주세요. (ex : 홀 10)");
-            System.out.print(" >> ");
+            System.out.printf("----------- %s(%d) vs %s(%d) ----------%n", player.getName(), player.getMoney(), opponent.getName(), opponent.getMoney());
+            int opponentResult = getRandomNum();
+            int[] playerOddEvenBetting = betMoney();
+            matchOddEven(playerOddEvenBetting, opponentResult);
+        }
+        checkMoneyZero();
+    }
+
+    public int getRandomNum() {
+        System.out.println("Game " + currentGame + "(Round " + gameRound + ") 상대방이 숫자를 뽑았습니다. (1 - " + RANDOM_LIMIT + ")");
+        int randomNum = r.nextInt(RANDOM_LIMIT) + 1;
+        return getOddOrEven(randomNum);
+    }
+
+    public int[] betMoney() {
+        System.out.println("베팅해주세요. (ex : \"1(홀) 10\" 또는 \"2(짝) 10\")");
+        System.out.print(" >> ");
+        int[] playerOddEvenBetting = new int[2];
+        while (true) {
             String[] playerBetting = sc.nextLine().split(" ");
-            String oddEven = playerBetting[0];
+            int playerResult = Integer.parseInt(playerBetting[0]);
             int betting = Integer.parseInt(playerBetting[1]);
-
-            if (playerBetting[0].equals(opponentResult)) {
-                player.setMoney(player.getMoney() + betting);
-                opponent.setMoney(opponent.getMoney() - betting);
-                System.out.println("정답!");
+            playerOddEvenBetting[0] = playerResult;
+            playerOddEvenBetting[1] = betting;
+            if (!checkBettingOverMax(getBettingLimit(), playerOddEvenBetting[1])) {
+                break;
             }
-            if (!playerBetting[0].equals(opponentResult)) {
-                player.setMoney(player.getMoney() - betting);
-                opponent.setMoney(opponent.getMoney() + betting);
-                System.out.println("오답!");
-            }
-            System.out.printf("남은 돈 : %s(%d), %s(%d)%n", player.getName(), player.getMoney(), opponent.getName(), opponent.getMoney());
+        }
+        return playerOddEvenBetting;
+    }
 
+    public int getBettingLimit() {
+        return Math.min(player.getMoney(), opponent.getMoney());
+    }
+
+    public void getNextRound() {
+        if (currentGame == 8) {
+            System.out.println("8인의 라이벌에게 모두 승리했습니다.");
+            return;
+        }
+        opponent = new Player("상대방", (int) (player.getMoney() * Math.pow(1.2, currentGame)));
+        playGame();
+    }
+
+    public void askRegame() {
+        int answer = sc.nextInt();
+        sc.nextLine(); // 버퍼 비우기
+        if (answer == YesOrNo.YES.getValue()) {
+            currentGame = 0;
+            init();
+        }
+        if (answer == YesOrNo.NO.getValue()) {
+            System.out.println("게임을 종료합니다.");
         }
     }
 
-    public String isOddEven(int randomNum) {
-        if (randomNum % 2 == 1) return "홀";
-        if (randomNum % 2 == 0) return "짝";
-        return "";
+    public void checkMoneyZero() {
+        gameRound = 0;
+        if (player.getMoney() <= 0) {
+            loseGame();
+        }
+        if (opponent.getMoney() <= 0) {
+            winGame();
+        }
+    }
+
+    public void winGame() {
+        System.out.println("이겼습니다! 다음 게임을 시작합니다.");
+        getNextRound();
+    }
+
+    public void loseGame() {
+        System.out.println("더 이상 베팅할 돈이 없습니다. 다시 하시겠습니까?");
+        System.out.println("네(1), 아니요(2)");
+        askRegame();
+    }
+
+    public int getOddOrEven(int randomNum) {
+        if (randomNum % 2 == 1) return OddEven.ODD.getValue();
+        if (randomNum % 2 == 0) return OddEven.EVEN.getValue();
+        return 0;
+    }
+
+    public boolean checkBettingOverMax(int maxBetting, int betting) {
+        if (maxBetting < betting) {
+            System.out.printf("----------- %s(%d) vs %s(%d) ----------%n", player.getName(), player.getMoney(), opponent.getName(), opponent.getMoney());
+            System.out.println("(!) 최대 배팅금액(" + maxBetting + ")을 초과했습니다. 다시 배팅해주세요.");
+            return true;
+        }
+        return false;
+    }
+
+    public void matchOddEven(int[] playerOddEvenBetting, int opponentResult) {
+        if (playerOddEvenBetting[0] == opponentResult) {
+            player.setMoney(player.getMoney() + playerOddEvenBetting[1]);
+            opponent.setMoney(opponent.getMoney() - playerOddEvenBetting[1]);
+            System.out.println("정답!");
+        }
+        if (playerOddEvenBetting[0] != opponentResult) {
+            player.setMoney(player.getMoney() - playerOddEvenBetting[1]);
+            opponent.setMoney(opponent.getMoney() + playerOddEvenBetting[1]);
+            System.out.println("오답!");
+        }
     }
 }
