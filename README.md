@@ -44,8 +44,9 @@
 
 <h2>Day 05</h2>
 <h4>알고리즘 문제 풀이</h4>
+
 <li><a href="https://github.com/ehdrhelr/codesquad-cocoa-java/tree/master/src/day05/lv1">Lv. 1</a></li>
-<li><a href="https://github.com/ehdrhelr/codesquad-cocoa-java/tree/master/src/day05/more1">더 풀어보기</li>
+<li><a href="https://github.com/ehdrhelr/codesquad-cocoa-java/tree/master/src/day05/more1">더 풀어보기</a></li>
 
 <h2>Day 05</h2>
 <h4>미션 3: 가계부 구현하기</h3>
