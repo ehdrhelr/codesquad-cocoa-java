@@ -213,16 +213,32 @@ public class AccountingBook {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("[ " + userName + "의 가계부 ]");
-        System.out.println("┌----------------------------------------┐");
-        System.out.println("| (1) 입력 (2) 삭제 (3) 수정 (4) 출력 (5) 검색 |");
-        System.out.println("└----------------------------------------┘");
-        System.out.print(" >> ");
-        String input = sc.nextLine();
-        switch (input) {
-            case "1":
-                inputDataToPersonalDataFile(userPersonalDataFile);
-                break;
+        while (true) {
+            System.out.println("[ " + userName + "의 가계부 ]");
+            System.out.println("┌------------------------------------------------------┐");
+            System.out.println("| (1) 입력 (2) 삭제 (3) 수정 (4) 출력 (5) 검색 (0) 메인화면으로 |");
+            System.out.println("└------------------------------------------------------┘");
+            System.out.print(" >> ");
+            String input = sc.nextLine();
+            switch (input) {
+                case "1":
+                    inputDataToPersonalDataFile(userPersonalDataFile);
+                    break;
+                case "2":
+                    break;
+                case "3":
+                    break;
+                case "4":
+                    showUserPersonalData(userPersonalDataFile);
+                    break;
+                case "5":
+                    break;
+                case "0":
+                    showMain();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -236,7 +252,10 @@ public class AccountingBook {
         String income = sc.nextLine();
         System.out.print("지출(expense) : ");
         String expense = sc.nextLine();
-        data.append("날짜 : " + date).append(", 적요 : " + comment).append(", 수입 : " + income).append(", 지출 : " + expense);
+        data.append("날짜 : " + date).
+                append(", 적요 : " + comment).
+                append(", 수입 : " + income).
+                append(", 지출 : " + expense);
         System.out.print(data.toString());
 
         try (FileWriter fw = new FileWriter(userPersonalDataFile, true)) {
@@ -244,8 +263,20 @@ public class AccountingBook {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
+    public void showUserPersonalData(File userPersonalDataFile) {
+        try (BufferedReader br = new BufferedReader(new FileReader(userPersonalDataFile))) {
+            String line = "";
+            int index = 0;
+            while ((line = br.readLine()) != null) {
+                index++;
+                System.out.println("[" + index + "] " + line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }
