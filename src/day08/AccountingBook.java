@@ -18,6 +18,7 @@
 package day08;
 
 import java.io.*;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Scanner;
 
@@ -34,12 +35,14 @@ public class AccountingBook {
     }
 
     public void init() {
-        readUserListFromFile();
-
+        createUserListFile();
+        readUserListFromFile(); // file에서 읽어서 맵에 추가한다.
+        readUserListFormMap();
         showMain();
     }
 
     public void showMain() {
+
         System.out.println("┌-------------┐");
         System.out.println("|    가계부     |");
         System.out.println("┌---------------------------┐");
@@ -123,16 +126,6 @@ public class AccountingBook {
         }
     }
 
-    public void signIn() {
-        System.out.println("┌---------------------------┐");
-        System.out.println("| 사용자와 비밀번호를 입력해주세요. |");
-        System.out.println("└---------------------------┘");
-        System.out.print(" 사용자 >> ");
-        String userName = sc.nextLine();
-        System.out.print(" 비밀번호 >> ");
-        String userPassword = sc.nextLine();
-    }
-
     public void readUserListFromFile() {
         try (BufferedReader br = new BufferedReader(new FileReader(userListPath + userListFileName))) {
 
@@ -149,6 +142,18 @@ public class AccountingBook {
         }
     }
 
+    // for test
+    public void readUserListFormMap() {
+        Enumeration e = userListMap.keys();
+        while (e.hasMoreElements()) {
+            Object keyObj = e.nextElement();
+            String key = (String) keyObj;
+            Object valObj = userListMap.get(key);
+            String val = (String) valObj;
+            System.out.println("key: " + key + ", val: " + val);
+        }
+    }
+
     public void addUserToMap(String userName, String userPassword) {
         userListMap.put(userName, userPassword);
     }
@@ -157,9 +162,56 @@ public class AccountingBook {
 
     }
 
-    public boolean isUser(String userName) {
+    public void signIn() {
+        System.out.println("┌---------------------------┐");
+        System.out.println("| 사용자와 비밀번호를 입력해주세요. |");
+        System.out.println("└---------------------------┘");
+        System.out.print(" 사용자 >> ");
+        String userName = sc.nextLine();
+        if (isUser(userName)) {
+            inputUserPassword(userName);
+        }
+        if (!isUser(userName)) {
+            System.out.println("[ ! 사용자(" + userName + ")가 존재하지 않습니다. ]");
+            System.out.println("[ (1) 다시입력 (2) 메인으로 돌아가기 ]");
+            String input = sc.nextLine();
+            if (input.equals("1")) signIn();
+            if (input.equals("2")) showMain();
 
+        }
+    }
+
+    public boolean isUser(String userName) {
+        if (userListMap.containsKey(userName)) {
+            return true;
+        }
         return false;
+    }
+
+    public void inputUserPassword(String userName) {
+        System.out.print(" 비밀번호 >> ");
+        String userPassword = sc.nextLine();
+        if (isCorrectPassword(userName, userPassword)) {
+            showPersonalMenu();
+        }
+        if (!isCorrectPassword(userName, userPassword)) {
+            System.out.println("[ ! 비밀번호가 틀렸습니다. ]");
+            System.out.println("[ (1) 다시입력 (2) 메인으로 돌아가기 ]");
+            String input = sc.nextLine();
+            if (input.equals("1")) inputUserPassword(userName);
+            if (input.equals("2")) showMain();
+        }
+    }
+
+    public boolean isCorrectPassword(String userName, String userPassword) {
+        if (userPassword.equals(userListMap.get(userName))) {
+            return true;
+        }
+        return false;
+    }
+
+    public void showPersonalMenu() {
+
     }
 
 
