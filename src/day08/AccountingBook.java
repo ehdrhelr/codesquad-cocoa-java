@@ -17,22 +17,26 @@
 
 package day08;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.*;
+import java.util.Hashtable;
 import java.util.Scanner;
 
 public class AccountingBook {
     public static Scanner sc = new Scanner(System.in);
-    private static Map<String, String> userList = new HashMap<>();
-    private final String fileSavePath = "/Users/shion/Desktop/";
+    private static Hashtable<String, String> userListMap = new Hashtable<>();
+    private final String userListPath = "/Users/shion/Desktop/";
     private final String userDataDirPath = "/Users/shion/Desktop/user_data/";
+    private final String userListFileName = "user_list.txt";
 
     public static void main(String[] args) {
         AccountingBook accountingBook = new AccountingBook();
-        accountingBook.showMain();
+        accountingBook.init();
+    }
+
+    public void init() {
+        readUserListFromFile();
+
+        showMain();
     }
 
     public void showMain() {
@@ -43,14 +47,13 @@ public class AccountingBook {
         System.out.println("└---------------------------┘");
         System.out.print(" >> ");
         choiceSignInOrSignUp();
-
     }
 
     public void choiceSignInOrSignUp() {
         int input = sc.nextInt();
         sc.nextLine(); // 버퍼비우기
         if (input == Membership.SIGN_IN.getIndex()) {
-
+            signIn();
         }
         if (input == Membership.SIGN_UP.getIndex()) {
             signUp();
@@ -69,6 +72,7 @@ public class AccountingBook {
         System.out.println("[ 사용자(" + userName + ") 등록되었습니다. ]");
 
         addUserToFile(userName + " " + userPassword);
+        addUserToMap(userName, userPassword);
         showMain();
     }
 
@@ -83,10 +87,9 @@ public class AccountingBook {
     }
 
     public File createUserListFile() {
-        String fileName = "user_list.txt";
         File file = null;
         try {
-            file = new File(fileSavePath + fileName);
+            file = new File(userListPath + userListFileName);
             if (!file.exists()) {
                 file.createNewFile();
             }
@@ -119,4 +122,45 @@ public class AccountingBook {
             e.printStackTrace();
         }
     }
+
+    public void signIn() {
+        System.out.println("┌---------------------------┐");
+        System.out.println("| 사용자와 비밀번호를 입력해주세요. |");
+        System.out.println("└---------------------------┘");
+        System.out.print(" 사용자 >> ");
+        String userName = sc.nextLine();
+        System.out.print(" 비밀번호 >> ");
+        String userPassword = sc.nextLine();
+    }
+
+    public void readUserListFromFile() {
+        try (BufferedReader br = new BufferedReader(new FileReader(userListPath + userListFileName))) {
+
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                String[] userInfo = line.split(" ");
+                String userName = userInfo[0];
+                String userPassword = userInfo[1];
+                addUserToMap(userName, userPassword);
+            }
+
+        } catch (IOException ie) {
+            ie.printStackTrace();
+        }
+    }
+
+    public void addUserToMap(String userName, String userPassword) {
+        userListMap.put(userName, userPassword);
+    }
+
+    public void showUsers() {
+
+    }
+
+    public boolean isUser(String userName) {
+
+        return false;
+    }
+
+
 }
