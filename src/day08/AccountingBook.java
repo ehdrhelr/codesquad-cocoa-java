@@ -18,8 +18,6 @@
 package day08;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Scanner;
@@ -217,9 +215,9 @@ public class AccountingBook {
         }
         while (true) {
             System.out.println("[ " + userName + "의 가계부 ]");
-            System.out.println("┌------------------------------------------------------┐");
-            System.out.println("| (1) 입력 (2) 삭제 (3) 수정 (4) 출력 (5) 검색 (0) 메인화면으로 |");
-            System.out.println("└------------------------------------------------------┘");
+            System.out.println("┌------------------------------------------------------------┐");
+            System.out.println("| <(1)입력> <(2)삭제> <(3)수정> <(4)출력> <(5)검색> <(0)메인화면으로> |");
+            System.out.println("└------------------------------------------------------------┘");
             System.out.print(" >> ");
             String input = sc.nextLine();
             switch (input) {
@@ -282,30 +280,31 @@ public class AccountingBook {
     }
 
     public void deleteUserPersonalData(File userPersonalDataFile) {
-
-        showUserPersonalData(userPersonalDataFile);
-//        System.out.println("[ 몇번째 데이터를 삭제하시겠습니까? ]");
-        System.out.println("[ 몇번째 데이터를 읽겠습니까? ]");
+        System.out.println("[ 몇번째 데이터를 삭제하시겠습니까? ]");
         System.out.print(" >> ");
         String input = sc.nextLine();
-        try {
-            String targetLine = Files.readAllLines(Paths.get(userPersonalDataFile.getPath())).get(Integer.parseInt(input) - 1);
-            System.out.println(targetLine);
+        String targetLine = "";
+        FileWriter fw = null;
+        try (BufferedReader br = new BufferedReader(new FileReader(userPersonalDataFile));) {
+
+//            fw = new FileWriter(userPersonalDataFile);
+
+            String line = "";
+            int index = 0;
+
+            while ((line = br.readLine()) != null) {
+                index++;
+                System.out.println("[" + index + "] " + line);
+                if (input.equals(index + "")) {
+                    System.out.println("[" + index + "번째 데이터가 삭제되었습니다.]  " + line);
+                    targetLine = line;
+                    continue;
+                }
+//                fw.append(line + "\n");
+//                fw.flush();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        try (BufferedReader br = new BufferedReader(new FileReader(userPersonalDataFile))) {
-//            String line = "";
-//            int index = 0;
-//            while ((line = br.readLine()) != null) {
-//                index++;
-//                if(input.equals(index + "")) {
-//                    System.out.println("[" + index + "번째 데이터가 삭제되었습니다.]  " + line);
-//                }
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
-
 }
