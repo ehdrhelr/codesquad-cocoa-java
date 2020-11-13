@@ -42,7 +42,7 @@
 <h2>Day 10</h2>
 <h4>2주차 알고리즘</h4>
 <ul>
-<li><a href="https://github.com/ehdrhelr/codesquad-cocoa-java/tree/master/src/day10">프로그래머스</li>
+<li><a href="https://github.com/ehdrhelr/codesquad-cocoa-java/tree/master/src/day10">프로그래머스</a></li>
 <li>더 풀어 보기</li>
     - 3단계까지 다 풀기
 </ul>
