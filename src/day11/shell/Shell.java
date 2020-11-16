@@ -11,6 +11,7 @@ public class Shell {
 
     public void startMainShell() throws Exception {
         Scanner sc = new Scanner(System.in);
+
         while (true) {
             System.out.print("Java Shell> ");
             String command = sc.nextLine();
@@ -46,7 +47,16 @@ public class Shell {
                 help.start();
                 Thread.sleep(10);
             }
+            if (command.startsWith("mkdir ")) {
+                Directory.setCommandStatus(DirectoryCommand.MKDIR);
+                String[] commandAndDirectory = command.split(" ");
+                String directory = commandAndDirectory[1];
+                DirectoryCommand.MKDIR.setNewDirectory(directory); // MKDIR에 입력된 directory를 변수값?으로 넣어준다.
+                Thread directoryThread = new Thread(new Directory());
+                directoryThread.start();
+                Thread.sleep(10);
 
+            }
             if (command.equalsIgnoreCase("exit")) {
                 System.out.println("[ 프로세스 완료됨 ]");
                 System.exit(0);

@@ -5,6 +5,8 @@
 
 package day11.shell;
 
+import java.io.File;
+
 public class Directory implements Runnable {
 
     private static String currentDirectory = "/Users/shion/";
@@ -20,7 +22,6 @@ public class Directory implements Runnable {
 
     public static void setCommandStatus(DirectoryCommand newCommandStatus) {
         commandStatus = newCommandStatus;
-
     }
 
     public void run() {
@@ -28,7 +29,8 @@ public class Directory implements Runnable {
             System.out.println(getCurrentDirectory());
         }
         if (commandStatus == DirectoryCommand.MKDIR) {
-
+            File newDirectory = new File(getCurrentDirectory() + DirectoryCommand.MKDIR.getNewDirectory());
+            newDirectory.mkdir();
         }
     }
 }
