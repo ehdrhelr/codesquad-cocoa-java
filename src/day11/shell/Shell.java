@@ -31,6 +31,15 @@ public class Shell {
                 historyThread.start();
                 Thread.sleep(10);
             }
+            if (command.startsWith("cp ")) { // Runnable 구현
+                String[] files = command.split(" ");
+                String targetFile = files[1];
+                String copiedFile = files[2];
+                Runnable copy = new Copy(targetFile, copiedFile);
+                Thread copyThread = new Thread(copy);
+                copyThread.start();
+                Thread.sleep(10);
+            }
         }
     }
 }

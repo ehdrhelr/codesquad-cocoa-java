@@ -7,7 +7,7 @@ package day11.shell;
 
 public class Directory implements Runnable {
 
-    private static String currentDirectory = "/Users/shion";
+    private static String currentDirectory = "/Users/shion/";
 
     public static String getCurrentDirectory() {
         return currentDirectory;
