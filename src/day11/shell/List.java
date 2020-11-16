@@ -11,7 +11,7 @@ import java.io.File;
 
 public class List implements Runnable {
     public void run() {
-        File file = new File("/Users/shion");
+        File file = new File(Directory.getCurrentDirectory());
         String[] listOfFiles = file.list();
         for (int i = 0; i < listOfFiles.length; i++) {
             if (i != 0 && i % 3 == 0) System.out.println();
