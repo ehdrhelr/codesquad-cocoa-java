@@ -29,8 +29,22 @@ public class Directory implements Runnable {
             System.out.println(getCurrentDirectory());
         }
         if (commandStatus == DirectoryCommand.MKDIR) {
-            File newDirectory = new File(getCurrentDirectory() + DirectoryCommand.MKDIR.getNewDirectory());
+            File newDirectory = new File(getCurrentDirectory() + DirectoryCommand.MKDIR.getNewDirectory() + "/");
             newDirectory.mkdir();
+        }
+        if (commandStatus == DirectoryCommand.CD) {
+            File directory = new File(getCurrentDirectory());
+            if (DirectoryCommand.CD.getNewDirectory().equals("..")) {
+                String parentPath = directory.getParent() + "/";
+                setCurrentDirectory(parentPath);
+                return;
+            }
+            String newPath = getCurrentDirectory() + DirectoryCommand.CD.getNewDirectory() + "/";
+            if (!new File(newPath).isDirectory()) {
+                System.out.println("no such file or directory : " + DirectoryCommand.CD.getNewDirectory());
+                return;
+            }
+            setCurrentDirectory(newPath);
         }
     }
 }

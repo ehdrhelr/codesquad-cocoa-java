@@ -16,19 +16,19 @@ public class Shell {
             System.out.print("Java Shell> ");
             String command = sc.nextLine();
             History.saveInHistory(command);
-            if (command.equalsIgnoreCase("ls")) { // Runnable 구현
+            if (command.trim().equalsIgnoreCase("ls")) { // Runnable 구현
                 Runnable list = new List();
                 Thread listThread = new Thread(list);
                 listThread.start();
                 Thread.sleep(10);
             }
-            if (command.equalsIgnoreCase("pwd")) { // Runnable 구현
+            if (command.trim().equalsIgnoreCase("pwd")) { // Runnable 구현
                 Directory.setCommandStatus(DirectoryCommand.PWD);
                 Thread directoryThread = new Thread(new Directory());
                 directoryThread.start();
                 Thread.sleep(10);
             }
-            if (command.equalsIgnoreCase("history")) { // Thread 상속
+            if (command.trim().equalsIgnoreCase("history")) { // Thread 상속
                 History historyThread = new History();
                 historyThread.start();
                 Thread.sleep(10);
@@ -42,7 +42,7 @@ public class Shell {
                 copyThread.start();
                 Thread.sleep(10);
             }
-            if (command.equalsIgnoreCase("help")) { // Thread 상속
+            if (command.trim().equalsIgnoreCase("help")) { // Thread 상속
                 Help help = new Help();
                 help.start();
                 Thread.sleep(10);
@@ -57,6 +57,18 @@ public class Shell {
                 Thread.sleep(10);
 
             }
+
+            if (command.startsWith("cd ")) {
+                Directory.setCommandStatus(DirectoryCommand.CD);
+                String[] commandAndDirectory = command.split(" ");
+                String directory = commandAndDirectory[1];
+                DirectoryCommand.CD.setNewDirectory(directory); // CD에 입력된 directory를 변수값?으로 넣어준다.
+                Thread directoryThread = new Thread(new Directory());
+                directoryThread.start();
+                Thread.sleep(10);
+
+            }
+
             if (command.equalsIgnoreCase("exit")) {
                 System.out.println("[ 프로세스 완료됨 ]");
                 System.exit(0);
