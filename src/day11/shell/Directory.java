@@ -39,11 +39,18 @@ public class Directory implements Runnable {
                 setCurrentDirectory(parentPath);
                 return;
             }
+
             String newPath = getCurrentDirectory() + DirectoryCommand.CD.getNewDirectory() + "/";
+
+            if (DirectoryCommand.CD.getNewDirectory().startsWith("Users")) {
+                newPath = "/" + DirectoryCommand.CD.getNewDirectory() + "/";
+            }
+
             if (!new File(newPath).isDirectory()) {
                 System.out.println("no such file or directory : " + DirectoryCommand.CD.getNewDirectory());
                 return;
             }
+
             setCurrentDirectory(newPath);
         }
     }
