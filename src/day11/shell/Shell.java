@@ -40,6 +40,11 @@ public class Shell {
                 copyThread.start();
                 Thread.sleep(10);
             }
+            if (command.equalsIgnoreCase("help")) { // Thread 상속
+                Help help = new Help();
+                help.start();
+                Thread.sleep(10);
+            }
 
             if (command.equalsIgnoreCase("exit")) {
                 System.out.println("[ 프로세스 완료됨 ]");
