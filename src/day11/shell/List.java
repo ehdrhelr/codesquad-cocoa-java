@@ -13,8 +13,11 @@ public class List implements Runnable {
     public void run() {
         File file = new File(Directory.getCurrentDirectory());
         String[] listOfFiles = file.list();
+        int unhiddenIndex = 0;
         for (int i = 0; i < listOfFiles.length; i++) {
-            if (i != 0 && i % 3 == 0) System.out.println();
+            if (new File(listOfFiles[i]).isHidden()) continue;
+            unhiddenIndex++;
+            if (unhiddenIndex % 3 == 0) System.out.println();
             System.out.printf("%-30s", listOfFiles[i]);
         }
         System.out.println();
