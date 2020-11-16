@@ -21,7 +21,8 @@ public class Shell {
                 listThread.start();
                 Thread.sleep(10);
             }
-            if (command.equalsIgnoreCase("pwd")) { // Runnalbe 구현
+            if (command.equalsIgnoreCase("pwd")) { // Runnable 구현
+                Directory.setCommandStatus(DirectoryCommand.PWD);
                 Thread directoryThread = new Thread(new Directory());
                 directoryThread.start();
                 Thread.sleep(10);

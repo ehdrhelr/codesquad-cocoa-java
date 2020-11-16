@@ -8,6 +8,7 @@ package day11.shell;
 public class Directory implements Runnable {
 
     private static String currentDirectory = "/Users/shion/";
+    private static DirectoryCommand commandStatus = null;
 
     public static String getCurrentDirectory() {
         return currentDirectory;
@@ -17,7 +18,17 @@ public class Directory implements Runnable {
         currentDirectory = newCurrentDirectory;
     }
 
+    public static void setCommandStatus(DirectoryCommand newCommandStatus) {
+        commandStatus = newCommandStatus;
+
+    }
+
     public void run() {
-        System.out.println(getCurrentDirectory());
+        if (commandStatus == DirectoryCommand.PWD) {
+            System.out.println(getCurrentDirectory());
+        }
+        if (commandStatus == DirectoryCommand.MKDIR) {
+
+        }
     }
 }
