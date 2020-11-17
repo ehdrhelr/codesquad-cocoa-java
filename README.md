@@ -49,3 +49,6 @@
 
 <h2>Day 11</h2>
 <h4>미션 5 셸 만들기<a href="https://github.com/ehdrhelr/codesquad-cocoa-java/tree/master/src/day11/shell"> (소스) </a></h4>
+
+<h2>Day 12</h2>
+<h4><a href="https://www.notion.so/day12-8e70aa8f93294f249a7d92021cafd2fd">학습정리</a></h4>
