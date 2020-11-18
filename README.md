@@ -52,3 +52,6 @@
 
 <h2>Day 12</h2>
 <h4><a href="https://www.notion.so/day12-8e70aa8f93294f249a7d92021cafd2fd">학습정리</a></h4>
+
+<h2>Day 13</h3>
+<h4>미션 6 한글 시계 추가하기 <a href="https://github.com/ehdrhelr/codesquad-cocoa-java/tree/master/src/day13/shell">(소스)</a></h4>
