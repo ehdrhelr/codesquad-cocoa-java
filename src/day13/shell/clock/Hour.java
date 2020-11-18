@@ -3,6 +3,7 @@ package day13.shell.clock;
 public class Hour {
 
     private String[] hourOnClock;
+    private final int INDEX_OF_SI = 10;
 
     public void moveNextLineWhenTargetHourIndex(int i) {
         if (i == 6) System.out.println();
@@ -60,10 +61,10 @@ public class Hour {
 
     public void lightTenOn(int[] time) {
         if (time[1] == 0) { // '0'시 '0'분이면 '자정'표시를 위해 '시'앞은 모두 끈다.
-            System.out.print(FontColor.ANSI_RESET.getValue() + hourOnClock[10] + " ");
+            System.out.print(FontColor.ANSI_RESET.getValue() + hourOnClock[INDEX_OF_SI] + " ");
             return;
         }
-        System.out.print(FontColor.ANSI_CYAN.getValue() + hourOnClock[10] + " ");
+        System.out.print(FontColor.ANSI_CYAN.getValue() + hourOnClock[INDEX_OF_SI] + " ");
     }
 
     public void lightSiOn(int i, int[] time) {

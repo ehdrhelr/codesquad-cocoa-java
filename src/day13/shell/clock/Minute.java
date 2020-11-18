@@ -4,6 +4,9 @@ public class Minute {
 
     String[] minuteOverTen;
     String[] minuteUnderTen;
+    private final int INDEX_OF_JA = 1;
+    private final int INDEX_OF_JUNG = 0;
+    private final int INDEX_OF_OH = 6;
 
     public void displayMinuteOverTen(int[] time) {
         MinuteBoard minuteBoard = new MinuteBoard();
@@ -52,6 +55,10 @@ public class Minute {
                 lightLastNumberOfMinuteOn(lastNumberOfMinute);
                 continue;
             }
+            if (lastNumberOfMinute == INDEX_OF_OH && i == 7) { // 끝자리가 '6'이면서 화면에 '육'(i == 7)을 출력할 때
+                lightLastNumberOfMinuteOn(lastNumberOfMinute);
+                continue;
+            }
 
             System.out.print(FontColor.ANSI_RESET.getValue() + minuteUnderTen[i] + " ");
 
@@ -87,11 +94,11 @@ public class Minute {
 
     public void lightJaOn(int[] time) {
         if (time[0] == 0) {
-            System.out.print(FontColor.ANSI_CYAN.getValue() + minuteOverTen[1] + " ");
+            System.out.print(FontColor.ANSI_CYAN.getValue() + minuteOverTen[INDEX_OF_JA] + " ");
             return;
         }
         // 0분이지만 0시가 아니면 플레인 '자' 출력
-        System.out.print(FontColor.ANSI_RESET.getValue() + minuteOverTen[1] + " ");
+        System.out.print(FontColor.ANSI_RESET.getValue() + minuteOverTen[INDEX_OF_JA] + " ");
     }
 
     public int getLastNumberOfMinute(int minute) {
@@ -121,18 +128,18 @@ public class Minute {
 
     public void lightJungOn(int[] time) {
         if (isMidnight(time) || isNoon(time)) {
-            System.out.print(FontColor.ANSI_CYAN.getValue() + minuteUnderTen[0] + " ");
+            System.out.print(FontColor.ANSI_CYAN.getValue() + minuteUnderTen[INDEX_OF_JUNG] + " ");
             return;
         }
-        System.out.print(FontColor.ANSI_RESET.getValue() + minuteUnderTen[0] + " ");
+        System.out.print(FontColor.ANSI_RESET.getValue() + minuteUnderTen[INDEX_OF_JUNG] + " ");
     }
 
     public void lightOhOn(int[] time) {
         if (isNoon(time)) {
-            System.out.print(FontColor.ANSI_CYAN.getValue() + minuteUnderTen[6] + " ");
+            System.out.print(FontColor.ANSI_CYAN.getValue() + minuteUnderTen[INDEX_OF_OH] + " ");
             return;
         }
-        System.out.print(FontColor.ANSI_RESET.getValue() + minuteUnderTen[6] + " ");
+        System.out.print(FontColor.ANSI_RESET.getValue() + minuteUnderTen[INDEX_OF_OH] + " ");
 
     }
 }
