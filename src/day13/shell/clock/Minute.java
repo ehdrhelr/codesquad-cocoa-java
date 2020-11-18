@@ -44,7 +44,10 @@ public class Minute {
     public void lightSibOn(int i, int minute) {
         if (minute >= 10) {
             System.out.print(FontColor.ANSI_CYAN.getValue() + minuteOverTen[i] + " ");
+            return;
         }
+        // 10 미만일 때는 플레인 '십'을 출력한다.
+        System.out.print(FontColor.ANSI_RESET.getValue() + minuteOverTen[i] + " ");
     }
 
     public int getFirstNumberOfMinute(int minute) { // 20 이상일 때만 실행한다.
