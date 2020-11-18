@@ -16,24 +16,24 @@ public class Shell {
             System.out.print("Java Shell> ");
             String command = sc.nextLine();
             History.saveInHistory(command);
-            if (command.trim().equalsIgnoreCase("ls")) { // Runnable 구현
+            if (command.trim().equalsIgnoreCase(Command.LS.getCommandAlias())) { // Runnable 구현
                 Runnable list = new List();
                 Thread listThread = new Thread(list);
                 listThread.start();
                 Thread.sleep(10);
             }
-            if (command.trim().equalsIgnoreCase("pwd")) { // Runnable 구현
+            if (command.trim().equalsIgnoreCase(Command.PWD.getCommandAlias())) { // Runnable 구현
                 Directory.setCommandStatus(DirectoryCommand.PWD);
                 Thread directoryThread = new Thread(new Directory());
                 directoryThread.start();
                 Thread.sleep(10);
             }
-            if (command.trim().equalsIgnoreCase("history")) { // Thread 상속
+            if (command.trim().equalsIgnoreCase(Command.HISTORY.getCommandAlias())) { // Thread 상속
                 History historyThread = new History();
                 historyThread.start();
                 Thread.sleep(10);
             }
-            if (command.startsWith("cp ")) { // Runnable 구현
+            if (command.startsWith(Command.HISTORY.getCommandAlias())) { // Runnable 구현
                 String[] files = command.split(" ");
                 String targetFile = files[1];
                 String copiedFile = files[2];
@@ -42,12 +42,12 @@ public class Shell {
                 copyThread.start();
                 Thread.sleep(10);
             }
-            if (command.trim().equalsIgnoreCase("help")) { // Thread 상속
+            if (command.trim().equalsIgnoreCase(Command.HELP.getCommandAlias())) { // Thread 상속
                 Help help = new Help();
                 help.start();
                 Thread.sleep(10);
             }
-            if (command.startsWith("mkdir ")) {
+            if (command.startsWith(Command.MKDIR.getCommandAlias())) {
                 Directory.setCommandStatus(DirectoryCommand.MKDIR);
                 String[] commandAndDirectory = command.split(" ");
                 String directory = commandAndDirectory[1];
@@ -57,7 +57,7 @@ public class Shell {
                 Thread.sleep(10);
             }
 
-            if (command.startsWith("cd ")) {
+            if (command.startsWith(Command.CD.getCommandAlias())) {
                 Directory.setCommandStatus(DirectoryCommand.CD);
                 String[] commandAndDirectory = command.split(" ");
                 String directory = commandAndDirectory[1];
@@ -66,13 +66,13 @@ public class Shell {
                 directoryThread.start();
                 Thread.sleep(10);
             }
-            if (command.equalsIgnoreCase("hclock")) {
+            if (command.equalsIgnoreCase(Command.HCLOCK.getCommandAlias())) {
                 HClock clock = new HClock();
                 clock.start();
                 Thread.sleep(10);
             }
 
-            if (command.equalsIgnoreCase("exit")) {
+            if (command.equalsIgnoreCase(Command.EXIT.getCommandAlias())) {
                 System.out.println("[ 프로세스 완료됨 ]");
                 System.exit(0);
             }
