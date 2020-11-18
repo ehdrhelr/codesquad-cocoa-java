@@ -19,6 +19,10 @@ public class Minute {
                 lightFirstNumberOfMinuteOn(firstNumber);
                 continue;
             }
+            if (i == 1 && time[1] == 0) { // '자'를 출력할 때 0시 0분이면 '자'를 출력한다.
+                lightJaOn(time); // 0시 조건을 실행
+                continue;
+            }
             System.out.print(FontColor.ANSI_RESET.getValue() + minuteOverTen[i] + " ");
 
         }
@@ -56,5 +60,14 @@ public class Minute {
 
     public void lightFirstNumberOfMinuteOn(int firstNumberOfMinute) {
         System.out.print(FontColor.ANSI_CYAN.getValue() + minuteOverTen[firstNumberOfMinute] + " ");
+    }
+
+    public void lightJaOn(int[] time) {
+        if (time[0] == 0) {
+            System.out.print(FontColor.ANSI_CYAN.getValue() + minuteOverTen[1] + " ");
+            return;
+        }
+        // 0분이지만 0시가 아니면 플레인 '자' 출력
+        System.out.print(FontColor.ANSI_RESET.getValue() + minuteOverTen[1] + " ");
     }
 }
