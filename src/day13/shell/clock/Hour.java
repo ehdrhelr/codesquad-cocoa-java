@@ -18,11 +18,11 @@ public class Hour {
                 continue;
             }
             if (time[0] >= 10 && i == 10) { // 열시일 때 '열'에 불켜준다.
-                lightTenOn();
+                lightTenOn(time);
                 continue;
             }
             if (i == time[0] && i >= 10) { // 열시 이상일 때 '열' 불켜진 상태로 '한' 또는 '두'에 불켜준다.
-                lightTargetHourOverTenOn(i);
+                lightTargetHourOverTenOn(i, time);
                 continue;
             }
             if (i <= 10 && i == time[0]) { // 열시 미만일 때 불켜준다.
@@ -30,11 +30,11 @@ public class Hour {
                 continue;
             }
             if (time[0] == 0 && i == 10) { // '0'시일 경우 '열'에 불켜준다.
-                lightTenOn();
+                lightTenOn(time); // '0'시면서 '0'분이면 '자정'출력을 위해서 '열'에 불끈다.
                 continue;
             }
             if (time[0] == 0 && i == 12) { // '0'시일 경우 '두'에 불켜준다.
-                lightTargetHourOverTenOn(i);
+                lightTargetHourOverTenOn(i, time); // '0'시면서 '0'분이면 '자정'출력을 위해서 '두'에 불끈다.
                 continue;
             }
 
@@ -48,11 +48,19 @@ public class Hour {
         System.out.print(FontColor.ANSI_CYAN.getValue() + hourOnClock[i] + " ");
     }
 
-    public void lightTargetHourOverTenOn(int i) {
+    public void lightTargetHourOverTenOn(int i, int[] time) {
+        if (time[1] == 0) { // '0'시면서 '0'분이면 '자정'출력을 위해서 '두'에 불끈다.
+            System.out.print(FontColor.ANSI_RESET.getValue() + hourOnClock[i] + " ");
+            return;
+        }
         System.out.print(FontColor.ANSI_CYAN.getValue() + hourOnClock[i] + " ");
     }
 
-    public void lightTenOn() {
+    public void lightTenOn(int[] time) {
+        if (time[1] == 0) { // '0'시 '0'분이면 '자정'표시를 위해 '시'앞은 모두 끈다.
+            System.out.print(FontColor.ANSI_RESET.getValue() + hourOnClock[10] + " ");
+            return;
+        }
         System.out.print(FontColor.ANSI_CYAN.getValue() + hourOnClock[10] + " ");
     }
 

@@ -23,7 +23,7 @@ public class Clock {
         Calendar today = Calendar.getInstance();
         int hour = today.get((Calendar.HOUR));
         int minute = today.get(Calendar.MINUTE);
-        int[] time = {0, 0};
+        int[] time = {12, 5};
         return time;
     }
 
