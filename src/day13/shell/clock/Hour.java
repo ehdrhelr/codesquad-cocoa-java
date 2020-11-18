@@ -12,7 +12,9 @@ public class Hour {
     public void displayHour(int[] time) {
         HourBoard hourBoard = new HourBoard();
         hourOnClock = hourBoard.getHourBoard();
+
         for (int i = 1; i < hourBoard.getHourBoard().length; i++) {
+            moveNextLineWhenTargetHourIndex(i); // 화면 이쁘게 줄바꿔준다.
             if (i == hourOnClock.length - 1) { // '시'에 도착했을 때 자정인지 아닌지 체크해서 불켜준다.
                 lightSiOn(i, time);
                 continue;
@@ -38,7 +40,7 @@ public class Hour {
                 continue;
             }
 
-            moveNextLineWhenTargetHourIndex(i); // 화면 이쁘게 줄바꿔준다.
+
             printOtherHours(i); // 현재 시간이외의 문자들을 플레인으로 출력
         }
         System.out.println(FontColor.ANSI_RESET.getValue());
