@@ -2,9 +2,6 @@ package day13.shell.clock;
 
 public class Hour {
 
-    private static final String ANSI_RESET = "\u001B[0m";
-    private static final String ANSI_CYAN = "\u001B[36m";
-
     private String[] hourOnClock;
 
     public void moveNextLineWhenTargetHourIndex(int i) {
@@ -44,31 +41,31 @@ public class Hour {
             moveNextLineWhenTargetHourIndex(i); // 화면 이쁘게 줄바꿔준다.
             printOtherHours(i); // 현재 시간이외의 문자들을 플레인으로 출력
         }
-        System.out.println(ANSI_RESET);
+        System.out.println(FontColor.ANSI_RESET.getValue());
     }
 
     public void lightTargetHourOn(int i) {
-        System.out.print(ANSI_CYAN + hourOnClock[i] + " ");
+        System.out.print(FontColor.ANSI_CYAN.getValue() + hourOnClock[i] + " ");
     }
 
     public void lightTargetHourOverTenOn(int i) {
-        System.out.print(ANSI_CYAN + hourOnClock[i] + " ");
+        System.out.print(FontColor.ANSI_CYAN.getValue() + hourOnClock[i] + " ");
     }
 
     public void lightTenOn() {
-        System.out.print(ANSI_CYAN + hourOnClock[10] + " ");
+        System.out.print(FontColor.ANSI_CYAN.getValue() + hourOnClock[10] + " ");
     }
 
     public void lightSiOn(int i, int[] time) {
         if (isNoon(time) || isMidnight(time)) { // 자정이거나 정오일 때 '시' 표시 안한다.
-            System.out.print(ANSI_RESET + hourOnClock[i] + " ");
+            System.out.print(FontColor.ANSI_RESET.getValue() + hourOnClock[i] + " ");
             return;
         }
-        System.out.print(ANSI_CYAN + hourOnClock[i] + " ");
+        System.out.print(FontColor.ANSI_CYAN.getValue() + hourOnClock[i] + " ");
     }
 
     public void printOtherHours(int i) {
-        System.out.print(ANSI_RESET + hourOnClock[i] + " ");
+        System.out.print(FontColor.ANSI_RESET.getValue() + hourOnClock[i] + " ");
     }
 
     public boolean isMidnight(int[] time) {
