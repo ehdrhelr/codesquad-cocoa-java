@@ -1,27 +1,11 @@
 package day13.shell.clock;
 
-import java.util.Calendar;
-
 public class Hour {
 
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_CYAN = "\u001B[36m";
 
     private String[] hourOnClock;
-
-    public void getTime() {
-        Calendar today = Calendar.getInstance();
-        int hour = today.get((Calendar.HOUR));
-        int minute = today.get(Calendar.MINUTE);
-        int[] time = {hour, minute};
-
-        display(time);
-
-    }
-
-    public void display(int[] time) {
-        displayHour(time);
-    }
 
     public void moveNextLineWhenTargetHourIndex(int i) {
         if (i == 6) System.out.println();
@@ -57,10 +41,10 @@ public class Hour {
                 continue;
             }
 
-
             moveNextLineWhenTargetHourIndex(i); // 화면 이쁘게 줄바꿔준다.
             printOtherHours(i); // 현재 시간이외의 문자들을 플레인으로 출력
         }
+        System.out.println(ANSI_RESET);
     }
 
     public void lightTargetHourOn(int i) {

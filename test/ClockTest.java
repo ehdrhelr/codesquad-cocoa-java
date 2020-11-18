@@ -7,7 +7,7 @@ public class ClockTest {
     @Test
     public void testDisplay() {
         int[] time = {12, 0};
-        hour.display(time);
+//        hour.display(time);
 
 
     }
