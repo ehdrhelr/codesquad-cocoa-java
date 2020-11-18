@@ -23,7 +23,7 @@ public class OddEvenGame {
     final int PLAYER_INITIAL_MONEY = 100;
     final int OPPONENT_MONEY = 120;
     final int RANDOM_LIMIT = 20;
-    final int TOTAL_RIVAL = 8;
+    final int TOTAL_RIVAL = 1;
 
     Player player;
     Player opponent;
@@ -69,11 +69,11 @@ public class OddEvenGame {
     }
 
     public int getRandomNum() {
-        System.out.println("Game " + currentGame + "(Round " + gameRound + ") 상대방이 숫자를 뽑았습니다. (1 - " + RANDOM_LIMIT + ")");
+        //System.out.println("Game " + currentGame + "(Round " + gameRound + ") 상대방이 숫자를 뽑았습니다. (1 - " + RANDOM_LIMIT + ")");
 
         int randomNum = r.nextInt(RANDOM_LIMIT) + 1;
-        // for test
-        // System.out.println("Game " + currentGame + "(Round " + gameRound + ") 상대방이 숫자를 뽑았습니다. (" + randomNum + ")");
+        //for test
+        System.out.println("Game " + currentGame + "(Round " + gameRound + ") 상대방이 숫자를 뽑았습니다. (" + randomNum + ")");
         return getOddOrEven(randomNum);
     }
 

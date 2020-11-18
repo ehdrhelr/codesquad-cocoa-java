@@ -1,13 +1,13 @@
-import day13.shell.clock.Clock;
+import day13.shell.clock.Hour;
 import org.junit.Test;
 
 public class ClockTest {
-    Clock c = new Clock();
+    Hour hour = new Hour();
 
     @Test
     public void testDisplay() {
         int[] time = {12, 0};
-        c.display(time);
+        hour.display(time);
 
 
     }
