@@ -10,6 +10,7 @@ public class Help extends Thread {
         System.out.println(" cp            copy the file and paste in the directory");
         System.out.println(" mkdir         make the directory");
         System.out.println(" cd            change the current directory");
+        System.out.println(" hclock        show the hangul clock");
         System.out.println(" exit          exit the process");
     }
 }

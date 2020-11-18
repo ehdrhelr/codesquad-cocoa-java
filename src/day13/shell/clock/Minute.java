@@ -100,10 +100,10 @@ public class Minute {
 
     public void lightBunOn(int i, int[] time) {
         if (time[1] == 0) { // '0'시 '0분일 때는 '자정'출력을 위해 '분'에 불끈다.
-            System.out.print(FontColor.ANSI_RESET.getValue() + minuteUnderTen[i] + " ");
+            System.out.println(FontColor.ANSI_RESET.getValue() + minuteUnderTen[i] + " " + FontColor.ANSI_RESET.getValue());
             return;
         }
-        System.out.print(FontColor.ANSI_CYAN.getValue() + minuteUnderTen[i] + " ");
+        System.out.println(FontColor.ANSI_CYAN.getValue() + minuteUnderTen[i] + " " + FontColor.ANSI_RESET.getValue());
     }
 
     public void lightLastNumberOfMinuteOn(int lastNumberOfMinute) {

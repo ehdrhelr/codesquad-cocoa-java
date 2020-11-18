@@ -55,7 +55,6 @@ public class Shell {
                 Thread directoryThread = new Thread(new Directory());
                 directoryThread.start();
                 Thread.sleep(10);
-
             }
 
             if (command.startsWith("cd ")) {
@@ -66,7 +65,11 @@ public class Shell {
                 Thread directoryThread = new Thread(new Directory());
                 directoryThread.start();
                 Thread.sleep(10);
-
+            }
+            if (command.equalsIgnoreCase("hclock")) {
+                HClock clock = new HClock();
+                clock.start();
+                Thread.sleep(10);
             }
 
             if (command.equalsIgnoreCase("exit")) {
