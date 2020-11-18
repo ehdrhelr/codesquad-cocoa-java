@@ -36,21 +36,28 @@ public class Minute {
 
         for (int i = 0; i < minuteUnderTen.length; i++) {
             moveNextLineWhenTargetIndex(i);
+            if (i == 0) {
+                lightJungOn(time);
+                continue;
+            }
+            if (i == 6) {
+                lightOhOn(time);
+                continue;
+            }
             if (i == minuteUnderTen.length - 1) { // '분'을 출력할 때
                 lightBunOn(i, time); // '0'시 '0'분이면 '자정'출력을 위해 '분'에 불끈다.
                 continue;
             }
-            if (i == lastNumberOfMinute && i <= 5) {
+            if (i == lastNumberOfMinute && i <= 5) { // 화면의 5번째 줄(끝자리 5분이하)에서 불켜준다.
                 lightLastNumberOfMinuteOn(lastNumberOfMinute);
                 continue;
             }
 
             System.out.print(FontColor.ANSI_RESET.getValue() + minuteUnderTen[i] + " ");
 
-            if (i == lastNumberOfMinute) {
+            if (i == lastNumberOfMinute) { // 화면의 6번째 줄(끝자리 6분이상)에 불켜준다.
                 lightLastNumberOfMinuteOn(lastNumberOfMinute);
-                i++;
-                continue;
+                i++; // 1 추가해주지 않으면 현재 분이 한번 더 출력된다.
             }
         }
     }
@@ -100,7 +107,32 @@ public class Minute {
     }
 
     public void lightLastNumberOfMinuteOn(int lastNumberOfMinute) {
-        if (lastNumberOfMinute > 5) lastNumberOfMinute++;
+        if (lastNumberOfMinute > 5) lastNumberOfMinute++; // 테이블 가운데 정오의 '오'가 있기 때문에 건더뛴다.
         System.out.print(FontColor.ANSI_CYAN.getValue() + minuteUnderTen[lastNumberOfMinute] + " ");
+    }
+
+    public boolean isMidnight(int[] time) {
+        return time[0] == 0 && time[1] == 0;
+    }
+
+    public boolean isNoon(int[] time) {
+        return time[0] == 12 && time[1] == 0;
+    }
+
+    public void lightJungOn(int[] time) {
+        if (isMidnight(time) || isNoon(time)) {
+            System.out.print(FontColor.ANSI_CYAN.getValue() + minuteUnderTen[0] + " ");
+            return;
+        }
+        System.out.print(FontColor.ANSI_RESET.getValue() + minuteUnderTen[0] + " ");
+    }
+
+    public void lightOhOn(int[] time) {
+        if (isNoon(time)) {
+            System.out.print(FontColor.ANSI_CYAN.getValue() + minuteUnderTen[6] + " ");
+            return;
+        }
+        System.out.print(FontColor.ANSI_RESET.getValue() + minuteUnderTen[6] + " ");
+
     }
 }
