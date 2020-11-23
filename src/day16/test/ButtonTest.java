@@ -1,4 +1,4 @@
-package day16;
+package day16.test;
 
 import java.awt.*;
 
