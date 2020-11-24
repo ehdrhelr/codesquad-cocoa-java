@@ -62,4 +62,12 @@
 <h2>Day 15</h2>
 <h4>3주차 알고리즘</h4>
 
-<li><a href="https://github.com/ehdrhelr/codesquad-cocoa-java/tree/master/src/day15">hankerrank</a></li>
+<a href="https://github.com/ehdrhelr/codesquad-cocoa-java/tree/master/src/day15">hankerrank</a>
+
+<h2>Day 16</h2>
+<h4>미션 6 GUI 프로그래밍 학습하기</h4>
+<a href="https://github.com/ehdrhelr/codesquad-cocoa-java/tree/master/src/day16">리듬게임</a> 구현하려다 실패
+
+<h2>Day 17</h2>
+<h4>AWT 학습하기</h4>
+<a href="https://github.com/ehdrhelr/codesquad-cocoa-java/tree/master/src/day17/snake">지렁이게임</a> 클론코딩
