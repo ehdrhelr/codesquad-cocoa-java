@@ -71,3 +71,6 @@
 <h2>Day 17</h2>
 <h4>AWT 학습하기</h4>
 <a href="https://github.com/ehdrhelr/codesquad-cocoa-java/tree/master/src/day17/snake">지렁이게임</a> 클론코딩
+
+<h2>Day 18</h2>
+<a href="https://github.com/ehdrhelr/codesquad-cocoa-java/tree/master/src/day18/animation">2D 애니메이션</a>
