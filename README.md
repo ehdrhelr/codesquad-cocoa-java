@@ -74,3 +74,9 @@
 
 <h2>Day 18</h2>
 <a href="https://github.com/ehdrhelr/codesquad-cocoa-java/tree/master/src/day18/animation">2D 애니메이션</a>
+
+<h2>Day 20</h2>
+<h4>4주차 알고리즘</h4>
+
+<a href="https://github.com/ehdrhelr/codesquad-cocoa-java/tree/master/src/day20">leetcode</a>
+
